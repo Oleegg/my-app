@@ -15,6 +15,9 @@ function Header() {
             <li>
               <Link to="/dialogs">Dialogs</Link>
             </li>
+            <li>
+              <Link to="/asistent">Asistent</Link>
+            </li>
           </ul>
         </nav>
     </div>

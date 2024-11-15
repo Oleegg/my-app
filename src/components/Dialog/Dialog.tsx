@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import  './dialog.css';
+import DialogItem from './DialogItem';
 
-function Dialog() {  
+function Dialog({dialogData}: {dialogData: string[]}) {  
    const [checked,setChecked] = useState(true) 
   return (    
           <div className="dialog-content">
@@ -12,7 +13,9 @@ function Dialog() {
                   </label>
               </div>
               <h2>Полный Диалог</h2>
-              <p>Выберите диалог из списка, чтобы увидеть его полное содержание.</p>
+              {dialogData.length 
+              ? <ul className='dialogs-wrapper'>{dialogData.map((text,i)=><DialogItem text={text} key={i} i={i}/>)}</ul>
+              : <p>Выберите диалог из списка, чтобы увидеть его полное содержание.</p>}
           </div>
   );
 }

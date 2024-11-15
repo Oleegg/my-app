@@ -6,3 +6,7 @@ export const LIST = [
     {img: '', title: 'Диалог 5',message:'Последнее сообщение...'},
     {img: '', title: 'Диалог 6',message:'Последнее сообщение...'},
 ]
+
+export const DIALOG = [
+    'ssssssssssssssssssssssss','aaaaaaaaaaaaaaaaaaaaaaaaaaaaa','ddddddddddddddddddddd','fffffffffffffffffffffff', 'dddddddddd eeeeeeee wwwwwwwwwww'
+]

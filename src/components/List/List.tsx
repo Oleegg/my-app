@@ -1,10 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import  './list.css';
-import { LIST } from './Data';
+import { DIALOG, LIST } from './Data';
 import Dialog from '../Dialog/Dialog';
+import ListItem from './ListItem';
 
 function List() {
     // const [message, setMessage] = useState('');
+    const [list, setList] = useState<any[]>(LIST);
+    const [dialogData, setDialogData] = useState<string[]>(DIALOG);
 
     useEffect(() => {
         const socket = new WebSocket('ws://mm-ai.eu/test:6789');
@@ -26,21 +29,15 @@ function List() {
       <div className="sidebar">
           <h2>Список Диалогов</h2>
           <ul>
-            {LIST.map((data,i) => {
+            {list.map((data,i) => {
                 return (
-                    <li key={i}>
-                  <img src={data.img} alt="Аватар" className="avatar"/>
-                  <div className="dialog-preview">
-                      <span className="dialog-title">{data.title}</span>
-                      <span className="dialog-last-message">{data.message}</span>
-                  </div>
-              </li>
+                   <ListItem key={i} data={data}/>
                 )
             })}  
           </ul>
       </div>
       <div className="main-content">
-              <Dialog/>
+              <Dialog dialogData={dialogData}/>
       </div>
     </div>
   );

@@ -1,59 +1,46 @@
+import { useEffect } from 'react';
 import  './list.css';
+import { LIST } from './Data';
+import Dialog from '../Dialog/Dialog';
 
 function List() {
+    // const [message, setMessage] = useState('');
+
+    useEffect(() => {
+        const socket = new WebSocket('ws://mm-ai.eu/test:6789');
+
+        socket.onmessage = (event) => {
+            console.log('WebSocket---',event);
+            
+            // const data = JSON.parse(event.data);
+            // setMessage(data.message);
+        };
+
+        return () => {
+            socket.close();
+        };
+    }, []);
+
   return (
     <div className="list">       
       <div className="sidebar">
           <h2>Список Диалогов</h2>
           <ul>
-              <li>
-                  <img src="avatar1.png" alt="Аватар" className="avatar"/>
+            {LIST.map((data,i) => {
+                return (
+                    <li key={i}>
+                  <img src={data.img} alt="Аватар" className="avatar"/>
                   <div className="dialog-preview">
-                      <span className="dialog-title">Диалог 1</span>
-                      <span className="dialog-last-message">Последнее сообщение...</span>
+                      <span className="dialog-title">{data.title}</span>
+                      <span className="dialog-last-message">{data.message}</span>
                   </div>
               </li>
-              <li>
-                  <img src="avatar2.png" alt="Аватар" className="avatar"/>
-                  <div className="dialog-preview">
-                      <span className="dialog-title">Диалог 2</span>
-                      <span className="dialog-last-message">Последнее сообщение...</span>
-                  </div>
-              </li>
-              <li>
-                  <img src="avatar3.png" alt="Аватар" className="avatar"/>
-                  <div className="dialog-preview">
-                      <span className="dialog-title">Диалог 3</span>
-                      <span className="dialog-last-message">Последнее сообщение...</span>
-                  </div>
-              </li>
-              <li>
-                  <img src="avatar4.png" alt="Аватар" className="avatar"/>
-                  <div className="dialog-preview">
-                      <span className="dialog-title">Диалог 4</span>
-                      <span className="dialog-last-message">Последнее сообщение...</span>
-                  </div>
-              </li>
-              <li>
-                  <img src="avatar5.png" alt="Аватар" className="avatar"/>
-                  <div className="dialog-preview">
-                      <span className="dialog-title">Диалог 5</span>
-                      <span className="dialog-last-message">Последнее сообщение...</span>
-                  </div>
-              </li>
+                )
+            })}  
           </ul>
       </div>
       <div className="main-content">
-          <div className="dialog-content">
-              <div className="switch-container">
-                  <label className="switch">
-                      <input type="checkbox"/>
-                      <span className="slider"></span>
-                  </label>
-              </div>
-              <h2>Полный Диалог</h2>
-              <p>Выберите диалог из списка, чтобы увидеть его полное содержание.</p>
-          </div>
+              <Dialog/>
       </div>
     </div>
   );

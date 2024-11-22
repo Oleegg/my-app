@@ -1,43 +1,49 @@
 import { useEffect, useState } from 'react';
-import  './list.css';
-import { DIALOG, LIST } from './Data';
+import './list.css';
 import Dialog from '../Dialog/Dialog';
 import ListItem from './ListItem';
+import { IDialogMini, IDialogData } from '../../types';
+import { sortList } from './helper';
+import ApiService from '../../requests/API';
 
-function List() {
-    // const [message, setMessage] = useState('');
-    const [list, setList] = useState<any[]>(LIST);
-    const [dialogData, setDialogData] = useState<string[]>(DIALOG);
+const List = () => {
+  const [list, setList] = useState<IDialogMini[]>([]);
+  const [dialogData, setDialogData] = useState<IDialogData | null>(null);
+  const [loading, setLoading] = useState<boolean>(true); // Состояние загрузки
+  const [error, setError] = useState<string | null>(null); // Состояние ошибки
 
-    useEffect(() => {
-        const socket = new WebSocket('ws://mm-ai.eu/test:6789');
+  useEffect(() => {
+    const getDialogs = async () => {
+      const response = await ApiService.getDialogs()
+      // Обработка успешного ответа
+      console.log('getDialogs=========', response);
+      setList(sortList(response));
+      if (response) setLoading(false); // Завершение загрузки    
+    };
 
-        socket.onmessage = (event) => {
-            console.log('WebSocket---',event);
-            
-            // const data = JSON.parse(event.data);
-            // setMessage(data.message);
-        };
-
-        return () => {
-            socket.close();
-        };
-    }, []);
+    getDialogs();
+  }, [loading]);
 
   return (
-    <div className="list">       
+    <div className="list">
       <div className="sidebar">
-          <h2>Список Диалогов</h2>
+        <h2>Список Диалогов</h2>
+        {loading ? (
+          <p>Загрузка...</p>
+        ) : (
           <ul>
-            {list.map((data,i) => {
-                return (
-                   <ListItem key={i} data={data}/>
-                )
-            })}  
+            {error ? (
+              <li>{error}</li>
+            ) : (
+              list.map((item, i) => (
+                <ListItem key={i} item={item} setDialogData={setDialogData} />
+              ))
+            )}
           </ul>
+        )}
       </div>
       <div className="main-content">
-              <Dialog dialogData={dialogData}/>
+        <Dialog dialogData={dialogData} setLoading={setLoading} />
       </div>
     </div>
   );

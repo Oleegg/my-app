@@ -1,18 +1,18 @@
-import  './buttons_page.css';
+import './buttons_page.css';
 
-function ButtonsPage() {
+const ButtonsPage= () => { 
   return (
-    <>
-    <div className="button-container">
+    <div>
+      <div className="button-container">
         <a href="https://www.instagram.com" className="instagram-button">Instagram</a>
-    </div>
-    <div className="switch-container">
+      </div>
+      <div className="switch-container">
         <label className="switch">
-            <input type="checkbox"/>
-            <span className="slider"></span>
+          <input type="checkbox" />
+          <span className="slider"></span>
         </label>
+      </div>
     </div>
-    </>
   );
 }
 

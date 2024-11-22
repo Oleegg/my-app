@@ -21,7 +21,7 @@
     list-style-type: none;
     padding: 0;
 }
-.sidebar li {
+.list-item {
     display: flex;
     align-items: center;
     padding: 10px;
@@ -31,8 +31,17 @@
     cursor: pointer;
     transition: all 0.3s;
 }
-.sidebar li:hover {
+
+.list-item:hover {
     background: #e6e6e6;
+}
+
+.green{
+    background: #96b493;
+}
+
+.green:hover{
+    background: #449b3c;
 }
 .avatar {
     width: 40px;

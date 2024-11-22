@@ -1,40 +1,46 @@
-import { FormEvent, useState } from 'react';
-import axios from 'axios';
-import  './auth.css';
+import { FormEvent, useEffect, useState } from 'react';
+import './auth.css';
+import { useAuth } from './AuthContext';
+import ApiService from '../../requests/API';
+import { Navigate, useLocation } from 'react-router-dom';
 
 function Auth() {
-  const [username,setUsername] = useState('')
-  const [password,setPassword] = useState('')
- 
+  const location = useLocation();
+  const { login, isAuthenticated } = useAuth();
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  console.log(location);
+  
+  useEffect(()=>{
+    if(isAuthenticated && location.pathname === '/') {
+    <Navigate to='/dialogs' />
+  }},[isAuthenticated])
+  
 
   const onSubmitHandler = async (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log('username',username);
-    console.log('password',password);
-    try {
-      const response = await axios.post('https://mm-ai.eu/test/login', {
-        username,
-        password,
-      });
+    console.log('username', username);
+    console.log('password', password);
 
-      // Обработка успешного ответа
-      console.log('Успешный вход:', response.data);
-      // Здесь вы можете сохранить токен или выполнить другие действия
-    } catch (err) {
-      // Обработка ошибки
-      // setError('Ошибка авторизации. Проверьте ваши учетные данные.');
-      console.error(err);
+    const response = await ApiService.auth(username, password)
+
+    // Обработка успешного ответа
+    console.log('Успешный вход:', response);
+    login()
+    const token = response?.access_token
+    if (token) {
+      localStorage.setItem('authToken', token);
     }
   }
-  
+
   return (
     <div className="form-container">
-        <h2>Авторизация</h2>
-        <form className='form'>
-            <input className='input' type="text" name="username" placeholder="Логин" required value={username} onChange={(e)=>setUsername(e.target.value)}/>
-            <input className='input' type="password" name="password" placeholder="Пароль" required value={password} onChange={(e)=>setPassword(e.target.value)}/>
-            <button type='submit' onClick={e=>onSubmitHandler(e)}>Войти</button>
-        </form>
+      <h2>Авторизация</h2>
+      <form className='form'>
+        <input className='input' type="text" name="username" placeholder="Логин" required value={username} onChange={(e) => setUsername(e.target.value)} />
+        <input className='input' type="password" name="password" placeholder="Пароль" required value={password} onChange={(e) => setPassword(e.target.value)} />
+        <button type='submit' onClick={e => onSubmitHandler(e)}>Войти</button>
+      </form>
     </div>
   );
 }

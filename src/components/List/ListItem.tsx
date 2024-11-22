@@ -1,26 +1,27 @@
+import { Dispatch, SetStateAction } from 'react';
 import './list.css';
+import { IDialogMini } from '../../types';
+import ApiService from '../../requests/API';
+import { truncate } from './helper';
 
-interface IData {
-  img: string,
-  title: string,
-  message: string,
-}
+function ListItem({ item, setDialogData }: { item: IDialogMini, setDialogData: Dispatch<SetStateAction<any>> }) {
+  const { instagram_id, last_message, username, gpt_enabled } = item
 
-interface IProps{ 
-  data: IData
-}
+  const getDialog = async () => {
+    const response = await ApiService.getDialog(instagram_id)
+    setDialogData({ ...response, instagram_id })
+  }
 
-function ListItem({ data}: IProps) {
-  const {img, title, message} = data
+
   return (
-    <li>
-      <img src={img} alt="Аватар" className="avatar" />
+    <li onClick={getDialog} className={gpt_enabled ? 'list-item green' : 'list-item'}>
+      {/* <img src={''} alt="Аватар" className="avatar" /> */}
       <div className="dialog-preview">
-        <span className="dialog-title">{title}</span>
-        <span className="dialog-last-message">{message}</span>
+        <span className="dialog-title">{username}</span>
+        <span className="dialog-last-message">{truncate(last_message.text, 65)}</span>  {/*65 - количество символов до ... */}
       </div>
     </li>
-  )        
+  )
 }
 
 export default ListItem;

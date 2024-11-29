@@ -1,19 +1,19 @@
 {
   "files": {
     "main.css": "/my-app/static/css/main.a0c268aa.css",
-    "main.js": "/my-app/static/js/main.6c0a727e.js",
+    "main.js": "/my-app/static/js/main.4cddd1f7.js",
     "static/js/453.ed3810f9.chunk.js": "/my-app/static/js/453.ed3810f9.chunk.js",
     "static/media/uparrow.svg": "/my-app/static/media/uparrow.8dbe5db0ce4d6676880b8c9d34495093.svg",
     "static/media/x.svg": "/my-app/static/media/x.93a8caa48e90f229f73f52a38ef226ea.svg",
-    "index.html": "/my-app/index.html",
     "static/media/whatsapp-svgrepo-com.svg": "/my-app/static/media/whatsapp-svgrepo-com.d06c7a347a81b0e57bee95103b7b53bb.svg",
+    "index.html": "/my-app/index.html",
     "static/media/minus.svg": "/my-app/static/media/minus.345c74a647da146a325755b35f4aa5f2.svg",
     "main.a0c268aa.css.map": "/my-app/static/css/main.a0c268aa.css.map",
-    "main.6c0a727e.js.map": "/my-app/static/js/main.6c0a727e.js.map",
+    "main.4cddd1f7.js.map": "/my-app/static/js/main.4cddd1f7.js.map",
     "453.ed3810f9.chunk.js.map": "/my-app/static/js/453.ed3810f9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a0c268aa.css",
-    "static/js/main.6c0a727e.js"
+    "static/js/main.4cddd1f7.js"
   ]
 }

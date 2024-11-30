@@ -73,7 +73,9 @@ input:checked+.slider:before {
     line-height: 20px;
     list-style: none;
     overflow-wrap: anywhere;
-    animation: /* 500ms ease-out 0ms 1 normal forwards running k-feVUdh, */ 500ms ease-out 0ms 1 normal forwards running k-jghRFv;
+    animation:
+        /* 500ms ease-out 0ms 1 normal forwards running k-feVUdh, */
+        500ms ease-out 0ms 1 normal forwards running k-jghRFv;
 }
 
 .user {
@@ -83,7 +85,7 @@ input:checked+.slider:before {
 }
 
 .bot {
-    background-color: #f1efef;   
+    background-color: #f1efef;
 }
 
 @keyframes k-jghRFv {
@@ -106,3 +108,12 @@ input:checked+.slider:before {
         transform: translateY(0px);
     }
 } */
+
+/* --------------------------------- */
+
+
+@media only screen and (max-width: 700px) {
+    .dialogs-wrapper {
+        overflow: auto;
+    }
+}

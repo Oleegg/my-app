@@ -5,12 +5,26 @@ import ListItem from './ListItem';
 import { IDialogMini, IDialogData } from '../../types';
 import { sortList } from './helper';
 import ApiService from '../../requests/API';
+import { ChatButton } from 'mm-ai-chat-widget'
+import Modal from '../Modal/Modal';
 
 const List = () => {
   const [list, setList] = useState<IDialogMini[]>([]);
   const [dialogData, setDialogData] = useState<IDialogData | null>(null);
-  const [loading, setLoading] = useState<boolean>(true); // Состояние загрузки
-  const [error, setError] = useState<string | null>(null); // Состояние ошибки
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [isModalOpen, setModalOpen] = useState(false);
+
+
+  const openModal = () => setModalOpen(true);
+  const closeModal = () => setModalOpen(false);
+
+  useEffect(()=>{
+    if(dialogData){
+      setModalOpen(true)
+    }
+  },[dialogData])
+
 
   useEffect(() => {
     const getDialogs = async () => {
@@ -24,6 +38,7 @@ const List = () => {
     getDialogs();
   }, [loading]);
 
+  console.log('isModalOpen@@@@@@@@@@@@@@', dialogData, dialogData?.user_dialogue.length,isModalOpen);
   return (
     <div className="list">
       <div className="sidebar">
@@ -42,9 +57,17 @@ const List = () => {
           </ul>
         )}
       </div>
+
+      <div className="main-modal-content">
+        <Modal isOpen={isModalOpen} onClose={closeModal}>
+          <Dialog dialogData={dialogData} setLoading={setLoading} />
+          {/* <button onClick={closeModal}>Close Modal</button> */}
+        </Modal>
+      </div>
       <div className="main-content">
         <Dialog dialogData={dialogData} setLoading={setLoading} />
       </div>
+      {/* <ChatButton /> */}
     </div>
   );
 }

@@ -27,9 +27,16 @@
     <title>M&M AI</title>
   </head>
   <body>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
+    <script src="https://unpkg.com/react/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.production.min.js"></script>
+    <script src="https://mm-ai.eu/static/widget/js/widget.js"></script>  
+    <div id="root"></div>  
+    <div id="modal-root"></div>
+    <div id="widget-root"></div>
+    <script>
+      Widget.renderWidget('#widget-root'); // Рендеринг виджета в указанном контейнере
+    </script>
+    <!--  This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
       You can add webfonts, meta tags, or analytics to this file.
@@ -38,5 +45,6 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    
   </body>
 </html>

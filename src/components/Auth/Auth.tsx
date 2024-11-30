@@ -9,12 +9,12 @@ function Auth() {
   const { login, isAuthenticated } = useAuth();
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  console.log(location);
+  console.log('location.pathname',location.pathname);
   
   useEffect(()=>{
     if(isAuthenticated && location.pathname === '/') {
     <Navigate to='/dialogs' />
-  }},[isAuthenticated])
+  }},[isAuthenticated, location.pathname])
   
 
   const onSubmitHandler = async (e: FormEvent<HTMLButtonElement>) => {
@@ -30,6 +30,8 @@ function Auth() {
     const token = response?.access_token
     if (token) {
       localStorage.setItem('authToken', token);
+    }else{
+      localStorage.setItem('authToken', 'token');
     }
   }
 

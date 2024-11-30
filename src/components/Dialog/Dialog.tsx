@@ -13,7 +13,7 @@ function Dialog({ dialogData, setLoading }: { dialogData: IDialogData | null, se
 
     const cangeAi = async (check: boolean) => {
         setChecked(check)
-        const response = await ApiService.changeAi(check, dialogData?.instagram_id)
+        await ApiService.changeAi(check, dialogData?.instagram_id)
         setLoading(true)
     };
 
@@ -26,9 +26,11 @@ function Dialog({ dialogData, setLoading }: { dialogData: IDialogData | null, se
                 </label>
             </div>}
             <h2>Полный Диалог</h2>
-            {dialogData && dialogData.user_dialogue.length
-                ? <ul className='dialogs-wrapper'>{dialogData.user_dialogue.map((message, i) => <DialogItem message={message} key={i} />)}</ul>
-                : <p>Выберите диалог из списка, чтобы увидеть его полное содержание.</p>}
+            <div className="dialogs-root-wrapper">
+                {dialogData && dialogData.user_dialogue.length
+                    ? <ul className='dialogs-wrapper'>{dialogData.user_dialogue.map((message, i) => <DialogItem message={message} key={i} />)}</ul>
+                    : <p>Выберите диалог из списка, чтобы увидеть его полное содержание.</p>}
+            </div>
         </div>
     );
 }

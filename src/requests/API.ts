@@ -17,7 +17,7 @@ class ApiService {
     // Получить список диалогов
     async getDialogs(): Promise<IDialogMini[]> {
         try {
-            const response = await this.apiClient.get('test/dialogues/'); //sisteroom || test     
+            const response = await this.apiClient.get('sisteroom/dialogues/'); //sisteroom || test     
             console.log('ApiService===getDialogs', response);
             if (response.status === 200) {
                 return response.data;
@@ -32,7 +32,7 @@ class ApiService {
 
     async auth(username: string, password: string): Promise<IAuth | undefined> {
         try {
-            const response = await this.apiClient.post('test/login/', {
+            const response = await this.apiClient.post('sisteroom/login/', {
                 username,
                 password,
             }); //sisteroom || test     
@@ -47,7 +47,7 @@ class ApiService {
 
     async getDialog(instagram_id: number): Promise<any> {
         try {
-            const response = await this.apiClient.get(`test/user/${instagram_id}/dialogue/`); // sisteroom || test
+            const response = await this.apiClient.get(`sisteroom/user/${instagram_id}/dialogue/`); // sisteroom || test
             console.log('getDialog-----', response);
             if (response.status === 200) {
                 return response.data;
@@ -65,7 +65,7 @@ class ApiService {
             if (!instagram_id) {
                 throw new Error('instagram_id is undefined')
             }
-            const response = await this.apiClient.post(`test/user/${instagram_id}/gpt/${check ? 'enable' : 'disable'}`); // sisteroom || test   
+            const response = await this.apiClient.post(`sisteroom/user/${instagram_id}/gpt/${check ? 'enable' : 'disable'}`); // sisteroom || test   
             console.log('changeAi-----', response);
             if (response.status === 200) {
                 return response.data;

@@ -7,6 +7,7 @@ import { sortList } from './helper';
 import ApiService from '../../requests/API';
 import { ChatButton } from 'mm-ai-chat-widget'
 import Modal from '../Modal/Modal';
+import { useResizeWindow } from '../../hooks/hooks';
 
 const List = () => {
   const [list, setList] = useState<IDialogMini[]>([]);
@@ -14,13 +15,16 @@ const List = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setModalOpen] = useState(false);
+  const {myInnerWidth} = useResizeWindow()
 
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
 
   useEffect(()=>{
-    if(dialogData){
+console.log(myInnerWidth);
+
+    if(dialogData && myInnerWidth <= 700){
       setModalOpen(true)
     }
   },[dialogData])

@@ -5,7 +5,6 @@ import ListItem from './ListItem';
 import { IDialogMini, IDialogData } from '../../types';
 import { sortList } from './helper';
 import ApiService from '../../requests/API';
-import { ChatButton } from 'mm-ai-chat-widget'
 import Modal from '../Modal/Modal';
 import { useResizeWindow } from '../../hooks/hooks';
 
@@ -15,26 +14,26 @@ const List = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setModalOpen] = useState(false);
-  const {myInnerWidth} = useResizeWindow()
+  const { myInnerWidth } = useResizeWindow()
 
 
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
 
-  useEffect(()=>{
-console.log(myInnerWidth);
+  useEffect(() => {
+    // console.log(myInnerWidth);
 
-    if(dialogData && myInnerWidth <= 700){
+    if (dialogData && myInnerWidth <= 700) {
       setModalOpen(true)
     }
-  },[dialogData])
+  }, [dialogData])
 
 
   useEffect(() => {
     const getDialogs = async () => {
       const response = await ApiService.getDialogs()
       // Обработка успешного ответа
-      console.log('getDialogs=========', response);
+      // console.log('getDialogs=========', response);
       setList(sortList(response));
       if (response) setLoading(false); // Завершение загрузки    
     };
@@ -42,7 +41,7 @@ console.log(myInnerWidth);
     getDialogs();
   }, [loading]);
 
-  console.log('isModalOpen@@@@@@@@@@@@@@', dialogData, dialogData?.user_dialogue.length,isModalOpen);
+  console.log('isModalOpen@@@@@@@@@@@@@@', dialogData, dialogData?.user_dialogue.length, isModalOpen);
   return (
     <div className="list">
       <div className="sidebar">
